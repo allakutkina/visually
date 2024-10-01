@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily routine ✨Just For You✨ </title>
+    <style>
+        body {
+        	display: grid;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Daily routine ✨Just For You✨
+</h1>
+
+<h3>According to Internet advice.
+</h3>
+<p> No kids, no hobbies, no pets.</>
+
+<div>
+<canvas id="canvas" style = "margin-top:20px"></canvas>
+</div>
+    <script>
+        // Activity data
+        const activities = [
+			{"activity_name": "Breakfast", "time_required": 20, "frequency_per_day": 1},
+			{"activity_name": "Planning the Day", "time_required": 10, "frequency_per_day": 1},
+			{"activity_name": "Listening to Music", "time_required": 15, "frequency_per_day": 1},
+			{"activity_name": "Breathing Exercises", "time_required": 5, "frequency_per_day": 2},
+			{"activity_name": "Skincare Routine", "time_required": 10, "frequency_per_day": 2},
+			{"activity_name": "Goal Setting", "time_required": 10, "frequency_per_day": 1},
+			{"activity_name": "Brushing Teeth", "time_required": 3, "frequency_per_day": 2},
+			{"activity_name": "Showering", "time_required": 15, "frequency_per_day": 1},
+			{"activity_name": "Washing Face", "time_required": 5, "frequency_per_day": 2},
+			{"activity_name": "Washing Hands", "time_required": 2, "frequency_per_day": 6},
+			{"activity_name": "Work", "time_required": 480, "frequency_per_day": 1},
+			{"activity_name": "Hydration Break", "time_required": 5, "frequency_per_day": 8},
+			{"activity_name": "Lunch", "time_required": 60, "frequency_per_day": 1},
+			{"activity_name": "Commute", "time_required": 60, "frequency_per_day": 1},
+			{"activity_name": "Tidying Up", "time_required": 10, "frequency_per_day": 1},
+			{"activity_name": "Walking Outdoors", "time_required": 20, "frequency_per_day": 1},
+			{"activity_name": "Gratitude Practice", "time_required": 5, "frequency_per_day": 1},
+			{"activity_name": "Learning Something New", "time_required": 30, "frequency_per_day": 1},
+			{"activity_name": "Cooking a Healthy Meal", "time_required": 45, "frequency_per_day": 1},
+			{"activity_name": "Dinner", "time_required": 30, "frequency_per_day": 1},
+			{"activity_name": "Connecting with a Friend or Family", "time_required": 30, "frequency_per_day": 1},
+			{"activity_name": "Cleaning or Organizing", "time_required": 15, "frequency_per_day": 1},
+			{"activity_name": "Exercise", "time_required": 30, "frequency_per_day": 1},
+			{"activity_name": "Stretching", "time_required": 10, "frequency_per_day": 2},
+			{"activity_name": "Reading", "time_required": 20, "frequency_per_day": 1},
+			{"activity_name": "Journaling", "time_required": 10, "frequency_per_day": 1},
+			{"activity_name": "Disconnecting from Devices", "time_required": 30, "frequency_per_day": 1},
+			{"activity_name": "Sleeping", "time_required": 480, "frequency_per_day": 1}
+        ];
+
+        let total = activities.reduce((accumulator, current) => accumulator + current.time_required * current.frequency_per_day, 0);
+     
+		
+		var gridWidth = total*1.2;
+		var gridHeight = (activities.length*20+30)*1.2;
+		
+		const canvas = document.getElementById("canvas");  
+		
+		canvas.width = gridWidth;
+		canvas.height = gridHeight; 	
+		ctx = canvas.getContext("2d");
+		
+		// Create a pattern, offscreen
+		const patternCanvas = document.createElement("canvas");
+		patternCanvas.width = 60*1.2;
+		patternCanvas.height = 20*1.2;
+		const patternContext = patternCanvas.getContext("2d");
+
+		patternContext.fillStyle = "white";
+		patternContext.beginPath();
+		patternContext.strokeStyle = "grey";
+		patternContext.setLineDash([7,7]);
+		patternContext.lineWidth = 1.0;
+		patternContext.rect(1, 1, 60*1.5, 20*1.2);
+		patternContext.stroke();
+		
+		const pattern = ctx.createPattern(patternCanvas, "repeat");
+		ctx.fillStyle = pattern;
+		
+		ctx.fillRect(0, 0, gridWidth, gridHeight);
+		
+		const gradient = ctx.createLinearGradient(0, 0, gridWidth, 0);
+		gradient.addColorStop("0", "LightGreen");
+		gradient.addColorStop("0.4", "PaleTurquoise");
+		gradient.addColorStop("0.90", "LightBlue");
+		gradient.addColorStop("0.94", "violet");
+		gradient.addColorStop("1.0", "red");
+		
+		ctx.font = "15px Arial"
+		x= 0;
+		y= 0;
+		
+		function draw(activities){
+		
+		
+			for (let i = 0; i < activities.length; i++) {
+				ctx.fillStyle = gradient;
+				ctx.fillRect(x,y+1, activities[i].time_required*activities[i].frequency_per_day*1.2, 23)
+				ctx.fillStyle = "white";
+				ctx.fillText(activities[i].activity_name, x+4,y+21)
+				ctx.fillStyle = "black";
+				ctx.fillText(activities[i].activity_name, x +3,y+20)
+				x+=activities[i].time_required*activities[i].frequency_per_day*1.2;
+				y+=20*1.2;
+			}
+		}
+		
+			
+			
+		draw(activities);
+		ctx.moveTo(24*60*1.2, 0);
+		ctx.lineTo(24*60*1.2, gridHeight);
+		ctx.strokeStyle = "red";
+		ctx.setLineDash([15, 3, 3, 3]);
+		ctx.stroke();
+		ctx.fillText("24h", 24*60*1.2+5, gridHeight-5)
+      
+    </script>
+    
+</body>
+</html>
+
