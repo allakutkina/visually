@@ -1,2 +1,3 @@
 # visually
-Exercises in visualising stuff. Updated once a week.
+Exercises in visualising stuff. 
+https://allakutkina.github.io/visually/
